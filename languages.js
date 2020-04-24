@@ -1,12 +1,11 @@
 /**
- *
  * Generated from https://translate.google.com
  *
  * The languages that Google Translate supports (as of 5/15/16) alongside with their ISO 639-1 codes
  * See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
  */
 
-var langs = {
+const langs = {
     'auto': 'Automatic',
     'af': 'Afrikaans',
     'sq': 'Albanian',
@@ -114,40 +113,44 @@ var langs = {
     'yo': 'Yoruba',
     'zu': 'Zulu'
 };
+  
+  
 /**
  * Returns the ISO 639-1 code of the desiredLang – if it is supported by Google Translate
  * @param {string} desiredLang – the name or the code(case sensitive) of the desired language
  * @returns {string|boolean} The ISO 639-1 code of the language or false if the language is not supported
  */
-function getCode(desiredLang) {
+const getCode = desiredLang => {
     if (!desiredLang) {
         return false;
     }
-
+  
     if (langs[desiredLang]) {
         return desiredLang;
     }
-
-    var keys = Object.keys(langs).filter(function (key) {
+  
+    const keys = Object.keys(langs).filter(key => {
         if (typeof langs[key] !== 'string') {
             return false;
         }
-
+  
         return langs[key].toLowerCase() === desiredLang.toLowerCase();
     });
-
+  
     return keys[0] || false;
 }
-
+  
+  
 /**
  * Returns true if the desiredLang is supported by Google Translate and false otherwise
  * @param desiredLang – the ISO 639-1 code or the name of the desired language
  * @returns {boolean}
  */
-function isSupported(desiredLang) {
+const isSupported = desiredLang => {
     return Boolean(getCode(desiredLang));
 }
-
-module.exports = langs;
-module.exports.isSupported = isSupported;
-module.exports.getCode = getCode;
+  
+  
+exports.langs = langs;
+exports.isSupported = isSupported;
+exports.getCode = getCode;
